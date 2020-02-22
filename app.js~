@@ -1,0 +1,28 @@
+const express = require('express');
+const app = express();
+const bodyParaser = require('body-parser');
+
+
+
+//Import Routes
+const userRoute = require('./controllers/user');
+const login = require('./controllers/login');
+const productRoute = require('./controllers/product');
+const review = require('./controllers/review');
+
+
+//MiddleWare
+app.get('/',(req,res) => {
+res.send("OOPs Wrong Route! ");
+});
+
+//Route Middleware
+
+module.exports = function(app){
+app.use(bodyParaser.text())
+   app.use('/api/user',userRoute);
+   app.use('/api/products',productRoute);
+
+    app.all('*',(req,res)=>{
+        res.status(400).send('OOPs Wrong URL! ');
+    });}
